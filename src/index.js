@@ -5,14 +5,12 @@ import { createStore, applyMiddleware } from 'redux';
 import {Router, browserHistory} from 'react-router';
 import routes from './routes';
 import reducers from './reducers';
-import promise from 'redux-promise';
-
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+import "babel-polyfill";
+// import Thunk from 'react-thunk';
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <Router history = {browserHistory} routes={routes}/>
   </Provider>
   , document.querySelector('.container'));
-
-

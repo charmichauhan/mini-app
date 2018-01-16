@@ -1,20 +1,20 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
-import App from './components/app';
-import PostsIndex from './components/posts_index';
-import PostsNew from './components/posts_new';
-import PostsShow from './components/posts_show';
-
-
-// const greeting = () => {
-//     return <div> Hii greet!! </div>
-// };
-
+import {Route, Router, hashHistory} from 'react-router';
+import FirstToCall from './components/callMe/FirstToCall';
+ import SignupForm from './components/SignupForm';
+import Page from './components/Page3';
+import Dashboard from './components/Dashboard';
+import Main from './components/demosignup';
 export default(
-<Route path="/" component={App} >
-    <IndexRoute component={PostsIndex}/>
-    <Route path="posts/new" component={PostsNew} />
-    <Route path="posts/:id" component={PostsShow} />
 
-</Route>
+    <Router history={hashHistory}>
+        <Route path="/" component={FirstToCall}/>
+        <Route path="/signupform" component={SignupForm}/>
+        <Route path="/page" component={Page}/>
+        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/demo" component={Main}/>
+
+
+    </Router>
 );
+
