@@ -5,16 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var db;
-var MongoClient = require('mongodb').MongoClient;
-var mongo = require('mongodb-wrapper');
 var assert = require('assert');
 var engines = require('consolidate');
 var ejs = require('ejs');
 var mongoose = require('mongoose');
 var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var ReactDOM = require('react-dom/server');
 var app = express();
 require('babel-core/register');
 // view engine setup
@@ -30,19 +25,18 @@ app.use(express.static(path.join(__dirname, '')));
 
 //mongoose.connect('mongodb://charmic:lanetteam1@ds153853.mlab.com:53853/testdata');
 mongoose.connect('mongodb://localhost:27017/miniapp');
-var mini=require('./models/model.js');
+var mini = require('./models/model.js');
 
 app.post('/data', function(req, res) {
     var test = new mini();
     // var fbResponse = JSON.parse(body);
     test.email = req.body.email;
 
-    test.save(function(err) {
+    test.save(function(err,result) {
         if (err) {
             res.send(err);
         }
-
-        res.json(test);
+        res.json(result);
     });
 
 });

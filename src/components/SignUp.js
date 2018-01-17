@@ -1,13 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import { Field ,reduxForm , formValueSelector, getFormValues} from 'redux-form';
-import {Link,browserHistory} from 'react-router';
+import { Field ,reduxForm } from 'redux-form';
+import {Link, browserHistory} from 'react-router';
 import {createData} from '../actions/index';
 import Progress from 'react-progressbar';
 import Progress1 from './Progress';
-import Dashboard from './Dashboard';
+import { bindActionCreators } from 'redux';
 
-let v={};
 class SignUp extends Component{
 
     constructor(props){
@@ -18,6 +17,7 @@ class SignUp extends Component{
             index1:'',
             confirmpassword:''
         }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     // static contextTypes = {
@@ -25,17 +25,13 @@ class SignUp extends Component{
     //     router: PropTypes.object
     // };
 
-    onSubmit(values){
-        v=values;
-        console.log('value : ',v);
-      //  window.alert(`You submitted:\n\n${JSON.stringify(values.email, null, 2)}`);
-            // this.setState({email:values.email},()=>{
-            //     console.log('email : ',email);
-            // })
-        this.props.setEmail(values.email);
-        this.props.setIndex(this.state.index1);
-        this.props.setStatus(2);
-        //browserHistory.push('/dashboard',this.props);
+    handleSubmit(){
+
+        // this.props.setEmail(values.email);
+        // this.props.setIndex(this.state.index1);
+        // this.props.setStatus(2);
+        this.props.createData();
+        browserHistory.push('/signupform');
         //this.context.router.push('/dashboard');
     }
 
@@ -52,14 +48,14 @@ class SignUp extends Component{
 
     render() {
 
-    const {details, handleSubmit} = this.props;
+    const {details} = this.props;
     return (
         <div>
 
             <h6 className="text-primary text-center"> Signup</h6>
             <Progress1 completed={30} style={{width: '500px'}}/>
             <div style={{align: 'center'}}>
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form-control" style={{width: '500px'}}>
+                <form onSubmit={this.handleSubmit} className="form-control" style={{width: '500px'}}>
 
                     <div className={`form-group ${'has-danger'}`}>
                         <div className="text-help">
@@ -85,7 +81,7 @@ class SignUp extends Component{
 
             </div>
 
-            <Dashboard index1={true} value={this.state.email}/>
+            {/*<Dashboard index1={true} value={this.state.email}/>*/}
         </div>
     )
 }
@@ -103,20 +99,21 @@ function validate(values) {
     if (!values.confirmpassword) {
         errors.confirmpassword = 'confirm password is required';
     }
-    if (values.confirmpassword) {
-        if (values.password !== values.confirmpassword) {
-            errors.confirmpassword = 'Passwords do not match';
-        } else {
-            values.confirmpassword = '';
-        }
+    if (values.password !== values.confirmpassword) {
+        errors.confirmpassword = 'Passwords do not match';
+    } else {
+        errors.confirmpassword = '';
     }
     return errors;
 }
 
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({createData}, dispatch);
+}
 SignUp = reduxForm({
         form: 'formName',
        validate})(SignUp);
-export default SignUp;
+export default connect(null, mapDispatchToProps)(SignUp);
 
 // function mapStateToProps(state) {
 //     const formState = getFormValues('signupform1')(state);
@@ -143,7 +140,6 @@ export default SignUp;
 //     }
 // )(SignUp)
 //SignUp = connect(mapStateToProps)(SignUp);
-
 
 // function mapStateToProps(state, ownProps) {
 //     return {
@@ -172,8 +168,3 @@ export default SignUp;
 //     {/*}/>*/}
 // {/*</div>*/}
 //
-
-
-//Today's Work:
-//-->Display all data successfully to the dashboard.
-//--> Completed minapp.

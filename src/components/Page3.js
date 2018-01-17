@@ -4,14 +4,14 @@ import Progress from 'react-progressbar';
 import Progress1 from './Progress';
 
 class Page extends Component{
-    static contextTypes = {
-        //router=this.context,router
-        router: PropTypes.object
-    };
+    // static contextTypes = {
+    //     //router=this.context,router
+    //     router: PropTypes.object
+    // };
 
     onSubmit() {
-        this.props.setStatus(4);
-       // this.context.router.push('/dashboard');
+        // this.props.setStatus(4);
+       this.props.history.push('/dashboard');
     }
     render(){
         return(

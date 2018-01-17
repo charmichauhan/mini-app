@@ -230,15 +230,17 @@ class SignupForm extends Component{
     //     router: PropTypes.object
     // };
 
-    onSubmit(props){
-        this.props.setStatus(3);
+    handleSubmit(){
+        // this.props.setStatus(3);
+        this.props.history.push('/page');
         //blog post has been created, navigate the user to the index
                 //we navigate by calling this.context.router.push with the new path to navigate
                 //this.context.router.push('/page');
                 //'/' indicates to naviagate back to index page
     }
-    onSubmit1(props){
-        this.props.setStatus(1);
+    onSubmit1(){
+        // this.props.setStatus(1);
+        this.props.history.push('/');
     }
     render(){
         return(
@@ -247,7 +249,7 @@ class SignupForm extends Component{
                 <h6 className="text-primary text-center">Signup</h6>
                 <Progress1 completed={60}  style={{width: '500px'}}/>
 
-                <form className="form-control"  onSubmit={this.onSubmit.bind(this)} style={{width: '500px'}}>
+                <form className="form-control"  onSubmit={this.handleSubmit.bind(this)} style={{width: '500px'}}>
 
                     <div>
 

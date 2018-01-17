@@ -4,12 +4,13 @@ import axios from 'axios';
 
 export const GET_DATA = 'GET_DATA';
 export const CREATE_DATA = 'CREATE_DATA';
-const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
-const API_KEY = '?key=';
+// const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
+// const API_KEY = '?key=';
 
 export function getData() {
 
-    const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
+    // const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
+    const request = axios.get(`http://localhost:4000/data`);
     console.log('request', request)
     return{
         type: GET_DATA,
@@ -18,7 +19,8 @@ export function getData() {
 }
 
 export function createData(props) {
-    const request = axios.post(`${ROOT_URL}/posts${API_KEY}`,props);
+    // const request = axios.post(`${ROOT_URL}/posts${API_KEY}`,props);
+    const request = axios.post(`http://localhost:4000/data`,props);
     return{
         type: CREATE_DATA,
         payload: request

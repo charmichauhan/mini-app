@@ -6,8 +6,9 @@ import {Router, browserHistory} from 'react-router';
 import routes from './routes';
 import reducers from './reducers';
 import "babel-polyfill";
+import Logger from 'redux-logger';
 // import Thunk from 'react-thunk';
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(Logger)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
